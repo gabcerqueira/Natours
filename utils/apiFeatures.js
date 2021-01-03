@@ -48,7 +48,6 @@ class APIFeatures {
     const docsToSkip = (page - 1) * limit;
 
     this.query = this.query.skip(docsToSkip).limit(limit);
-    console.log(this);
     return this;
   }
 }
