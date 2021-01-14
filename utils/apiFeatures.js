@@ -8,7 +8,6 @@ class APIFeatures {
     const filterObj = { ...this.queryString };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete filterObj[el]);
-    console.log(filterObj);
     let queryStr = JSON.stringify(filterObj);
     queryStr = queryStr.replace(
       /\b(gte|gt|lte|lt)\b/g,
@@ -41,10 +40,8 @@ class APIFeatures {
   }
 
   paginate() {
-    const page =
-      this.queryString.page * 1 || tourConstants.PAGE_DEFAULT;
-    const limit =
-      this.queryString.limit * 1 || tourConstants.PAGE_LIMIT;
+    const page = this.queryString.page * 1 || tourConstants.PAGE_DEFAULT;
+    const limit = this.queryString.limit * 1 || tourConstants.PAGE_LIMIT;
     const docsToSkip = (page - 1) * limit;
 
     this.query = this.query.skip(docsToSkip).limit(limit);

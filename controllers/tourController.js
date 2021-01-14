@@ -26,15 +26,18 @@ const getOneTour = catchAsyncErrors(async (req, res, next) => {
   const { id } = req.params;
   const isValidId = ObjectId.isValid(id) ? true : false;
 
+  /*
   if (!isValidId) {
     const errorMessage = 'invalid ID for a tour';
     return next(new AppError(errorMessage, errorStatus.BAD_REQUEST));
   }
+  */
 
   const tour = await Tour.findById(id);
 
   if (!tour) {
     const errorMessage = 'No tour found with that ID';
+
     return next(new AppError(errorMessage, errorStatus.NOT_FOUND));
   }
 
