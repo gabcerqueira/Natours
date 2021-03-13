@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "5c8a1f292f8fb814b56fa184",
+    "name": "Leo Gillespie",
+    "email": "leo@example.com",
+    "role": "guide",
+    "active": true,
+    "photo": "user-5.jpg",
+    "password": "12345678",
+    "passwordConfirm": "12345678"
+  },
+  {
+    "_id": "5c8a1f4e2f8fb814b56fa185",
+    "name": "Jennifer Hardy",
+    "email": "jennifer@example.com",
+    "role": "guide",
+    "active": true,
+    "photo": "user-6.jpg",
+    "password": "12345678",
+    "passwordConfirm": "12345678"
+  },
+  {
+    "_id": "5c8a201e2f8fb814b56fa186",
+    "name": "Kate Morrison",
+    "email": "kate@example.com",
+    "role": "guide",
+    "active": true,
+    "photo": "user-7.jpg",
+    "password": "12345678",
+    "passwordConfirm": "12345678"
+  },
+  {
+    "_id": "5c8a23412f8fb814b56fa18c",
+    "name": "Ben Hadley",
+    "email": "ben@example.com",
+    "role": "guide",
+    "active": true,
+    "photo": "user-13.jpg",
+    "password": "12345678",
+    "passwordConfirm": "12345678"
+  }
+]

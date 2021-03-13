@@ -45,6 +45,7 @@ const userSchema = new mongoose.Schema({
     minlength: 8,
     select: false,
     validate: {
+      //ONLY WORKS ON CREATE AND SAVE!!
       validator: function (input) {
         return input === this.password;
       },
@@ -54,19 +55,15 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
-});
-
-//Mongoose Middleware to encrypt and store passwords
-userSchema.pre('save', async function (next) {
-  // Only run if password is modified.
-  if (!this.isModified('password')) return next();
-
-  this.password = await bcrypt.hash(this.password, 12);
-  this.passwordConfirm = undefined;
-  next();
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
 //função de um schema escolhido
+
 userSchema.methods.correctPassword = async function (
   passwordInput,
   userPassword
@@ -99,6 +96,33 @@ userSchema.methods.createPasswordResetToken = function () {
 
   return resetToken;
 };
+
+//<-- Docs Middlewares -->
+//Mongoose Middleware to encrypt and store passwords
+userSchema.pre('save', async function (next) {
+  // Only run if password is modified.
+  if (!this.isModified('password')) return next();
+
+  this.password = await bcrypt.hash(this.password, 12);
+  this.passwordConfirm = undefined;
+  next();
+});
+
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password') || this.isNew) {
+    return next();
+  }
+  this.passwordChangedAt = Date.now() - 1000;
+
+  next();
+});
+
+// <-- Query Middlewares -->
+userSchema.pre(/^find/, function (next) {
+  //this points to the current query
+  this.find({ active: { $ne: false } });
+  next();
+});
 
 const User = mongoose.model('User', userSchema);
 
